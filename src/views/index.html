@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/styles.css" />
+    <title>Request Header Parser</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>URL shortener microservice</h1>
+      <h2>short URL creation</h2>
+    </header>
+
+    <main>
+      <p>Example: POST https://sueurlshortenermicroservice.herokuapp.com/api/shorturl https://www.google.com</p>
+
+      <section class="post">
+        <form action="/api/shorturl" method="post" class="form__container">
+          <fieldset class="form_fieldset">
+            <legend>URL Shortener</legend>
+
+            <label for="url">URL:</label>
+            <input
+              type="text"
+              name="url"
+              id="url"
+              class="url__input"
+              placeholder="https://forum.freecodecamp.org/"
+              required
+            />
+            <button type="submit" class="form__btn">POST URL</button>
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="section__example">
+        <div class="example__usage">
+          <h2>example Usage:</h2>
+
+          <a href="/api/shorturl/0" target="_blank">https://sueurlshortenermicroservice.herokuapp.com/api/shorturl/0</a>
+        </div>
+
+        <div class="example_redirect">
+          <h3>will redirect to</h3>
+
+          <p>https://forum.freecodecamp.org/</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Made with 💙 By
+        <a
+          href="https://github.com/DiogoJorge1401"
+          target="_blank"
+          class="github__link"
+        >
+          Diogo Jorge
+        </a>
+      </p>
+    </footer>
+  </body>
+</html>
