@@ -10,17 +10,25 @@ body {
   padding-top: 1rem;
 }
 
-.headind{
+.headind {
   margin-bottom: 1.5rem;
 }
 
 .card {
-  background: #87d37c;
   width: 21.875rem;
   padding: 2rem 1rem;
-  border-radius: 0.5rem;
   margin: 0 auto;
   margin-bottom: 2rem;
+
+  background: #87d37c;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+.card:hover {
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
 }
 .card__heading {
   margin-bottom: 0.75rem;
@@ -31,7 +39,8 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.card__code-text {
+.card__code-text,
+.exercice__log__code {
   background: #fffec4;
   padding: 0.125rem;
   font-size: 1rem;
@@ -61,6 +70,14 @@ body {
 
 .card__form__button:hover {
   background: #fffec4;
+}
+
+.exercice__log  p{
+  margin-bottom: 1rem;
+}
+
+.exercice__log__code{
+  font-size: 0.9375rem;
 }
 
 @media screen and (min-width: 780px) {

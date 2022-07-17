@@ -24,31 +24,77 @@ export async function GetAllUsersController(req: Request, res: Response) {
 }
 
 export async function CreateExerciceController(req: Request, res: Response) {
+  try {
+
+    const userId = req.params.id
+
+    const userExists = await UserModel.findById(userId)
+
+    if (!userExists) return res.json({ message: "user doesn't exist!" })
+
+    let { description, duration, date } = req.body
+
+    if (!description || !duration) return res.json({ message: "some fields are missing" })
+
+    date = new Date(getDefaultDate(date))
+
+    const { _id } = await ExerciceModel.create({
+      date,
+      description,
+      duration,
+      user: userId
+    })
+
+    return res.json({
+      username: userExists.username,
+      description,
+      duration: +duration,
+      date: date.toDateString(),
+      _id
+    })
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" })
+  }
+
+}
+
+export async function GetExerciceLog(req: Request, res: Response) {
   const userId = req.params.id
+  const { from, to, limit = 100 } = req.query
 
-  const userExists = await UserModel.findById(userId)
+  try {
 
-  if (!userExists) return res.json({ message: "user doesn't exist!" })
+    const userExists = await UserModel.findById(userId)
 
-  let { description, duration, date } = req.body
+    if (!userExists) return res.json({ message: "user doesn't exist!" })
 
-  if (!description || !duration) return res.json({ message: "some fields are missing" })
+    let exercices = await ExerciceModel.find({
+      user: userId,
+      date: {
+        $gte: new Date(getDefaultDate(from)),
+        $lte: new Date(getDefaultDate(to))
+      }
+    }).limit(limit) as any
 
-  date = new Date(date || new Date())
+    exercices = exercices.map(({ description, duration, date }) => ({
+      description,
+      duration,
+      date: new Date(date).toDateString()
+    }))
 
-  const { _id } = await ExerciceModel.create({
-    date,
-    description,
-    duration,
-    user: userId
-  })
+    return res.json({
+      _id: userId,
+      username: userExists.username,
+      count: exercices.length,
+      log: exercices
+    })
 
-  return res.json({
-    username: userExists.username,
-    description,
-    duration,
-    date: date.toDateString(),
-    _id
-  })
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" })
+  }
 
+}
+
+function getDefaultDate(date: any) {
+  return date || new Date()
 }

@@ -61,15 +61,25 @@
             placeholder="duration* (mins.)"
             required
           />
-          <input
-            type="date"
-            name="date"
-            class="card__form__input"
-          />
+          <input type="date" name="date" class="card__form__input" />
 
           <button type="submit" class="card__form__button">Submit</button>
         </form>
       </article>
+
+      <section class="exercice__log">
+        <p>
+          <strong>GET user's exercice log:</strong>
+          <code class="exercice__log__code">GET /api/users/:id/logs?[from][&to][&limit]</code>
+        </p>
+
+        <p><strong>[ ]</strong> = optional</p>
+
+        <p>
+          <strong>from, to</strong> = dates (yyyy-mm-dd);
+          <strong>limit</strong> = number
+        </p>
+      </section>
     </main>
 
     <script src="/public/app.js" defer></script>
