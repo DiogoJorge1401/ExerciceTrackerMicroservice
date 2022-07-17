@@ -1,26 +1,40 @@
-import e, { urlencoded } from "express";
+import 'dotenv/config'
 import cors from "cors";
+import e, { Express } from "express";
 import { routes } from "./routes";
+import { connectToDB } from './utils';
 
-const app = e();
+class App {
+  app: Express
+  port = process.env.PORT || 3000
 
-app.use(cors());
+  constructor() {
+    this.app = e();
+    this.settings()
+    this.middlewares()
+    this.routes()
+    this.start()
+  }
 
-app.use(e.json());
-app.use(e.urlencoded({ extended: true }))
+  middlewares() {
+    this.app.use(cors());
+    this.app.use(e.json());
+    this.app.use(e.urlencoded({ extended: true }))
+    this.app.use("/public", e.static(`${__dirname}/public`));
+  }
 
-app.use("/public", e.static(`${__dirname}/public`));
+  routes() {
+    this.app.get("/", (_, res) => res.sendFile(`${__dirname}/views/index.html`));
+    this.app.use("/api", routes);
+  }
 
-app.get("/", (req, res) => {
-  res.sendFile(`${__dirname}/views/index.html`);
-});
+  settings() {
+    connectToDB()
+  }
 
-app.use("/api", routes);
+  start() {
+    this.app.listen(this.port, () => console.log(`Server is Running on ${this.port}`));
+  }
+}
 
-const port = process.env.PORT || 3000
-
-app.listen(port, () =>
-  console.log(`Server is Running on ${port}`)
-);
-
-export default app
+export default new App().app

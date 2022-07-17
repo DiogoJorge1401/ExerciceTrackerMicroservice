@@ -5,63 +5,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/styles.css" />
-    <title>Request Header Parser</title>
+    <title>Exercice Tracker</title>
   </head>
 
   <body>
-    <header>
-      <h1>URL shortener microservice</h1>
-      <h2>short URL creation</h2>
-    </header>
+    <main class="main__container">
+      <h1 class="headind">Exercice Tracker</h1>
 
-    <main>
-      <p>Example: POST https://sueurlshortenermicroservice.herokuapp.com/api/shorturl https://www.google.com</p>
+      <article class="card">
+        <h3 class="card__heading">Create a New User</h3>
 
-      <section class="post">
-        <form action="/api/shorturl" method="post" class="form__container">
-          <fieldset class="form_fieldset">
-            <legend>URL Shortener</legend>
+        <p class="card__code">
+          <code class="card__code-text">POST /api/users</code>
+        </p>
 
-            <label for="url">URL:</label>
-            <input
-              type="text"
-              name="url"
-              id="url"
-              class="url__input"
-              placeholder="https://forum.freecodecamp.org/"
-              required
-            />
-            <button type="submit" class="form__btn">POST URL</button>
-          </fieldset>
+        <form action="/api/users" method="post" class="card__form">
+          <input
+            type="text"
+            name="username"
+            class="card__form__input"
+            placeholder="username"
+            required
+          />
+
+          <button type="submit" class="card__form__button">Submit</button>
         </form>
-      </section>
+      </article>
 
-      <section class="section__example">
-        <div class="example__usage">
-          <h2>example Usage:</h2>
+      <article class="card">
+        <h3 class="card__heading">Add exercises</h3>
 
-          <a href="/api/shorturl/0" target="_blank">https://sueurlshortenermicroservice.herokuapp.com/api/shorturl/0</a>
-        </div>
+        <p class="card__code">
+          <code class="card__code-text">POST /api/users/:_id/exercises </code>
+        </p>
 
-        <div class="example_redirect">
-          <h3>will redirect to</h3>
+        <form method="post" class="card__form" id="exercice-form">
+          <input
+            type="text"
+            name="userId"
+            class="card__form__input"
+            placeholder="user id"
+            required
+          />
+          <input
+            type="text"
+            name="description"
+            class="card__form__input"
+            placeholder="description*"
+            required
+          />
+          <input
+            type="number"
+            name="duration"
+            class="card__form__input"
+            placeholder="duration* (mins.)"
+            required
+          />
+          <input
+            type="date"
+            name="date"
+            class="card__form__input"
+          />
 
-          <p>https://forum.freecodecamp.org/</p>
-        </div>
-      </section>
+          <button type="submit" class="card__form__button">Submit</button>
+        </form>
+      </article>
     </main>
 
-    <footer>
-      <p>
-        Made with 💙 By
-        <a
-          href="https://github.com/DiogoJorge1401"
-          target="_blank"
-          class="github__link"
-        >
-          Diogo Jorge
-        </a>
-      </p>
-    </footer>
+    <script src="/public/app.js" defer></script>
   </body>
 </html>
