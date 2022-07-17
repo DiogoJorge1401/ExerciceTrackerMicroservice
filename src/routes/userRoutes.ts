@@ -6,7 +6,7 @@ const userRoutes = Router();
 userRoutes
   .post('/', CreateUserController)
   .get('/', GetAllUsersController)
-  .post('/:id/exercices', CreateExerciceController)
+  .post('/:id/exercises', CreateExerciceController)
   .get('/:id/logs', GetExerciceLog)
 
 export { userRoutes };

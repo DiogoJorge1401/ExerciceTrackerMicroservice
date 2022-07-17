@@ -86,7 +86,7 @@ export async function GetExerciceLog(req: Request, res: Response) {
           toDate = new Date(to).getTime()
           return (date >= fromDate && date <= toDate)
         }
-        
+
         return (date >= fromDate)
       })
       .slice(0, limit)
