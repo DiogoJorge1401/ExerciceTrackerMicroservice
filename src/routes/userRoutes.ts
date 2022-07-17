@@ -1,9 +1,10 @@
-import { Router } from 'express';
-import { CreateExerciceController, CreateUserController } from '../controllers/userController';
+  import { Router } from 'express';
+import { CreateExerciceController, CreateUserController, GetAllUsersController } from '../controllers/userController';
 
 const userRoutes = Router();
 
 userRoutes.post('/', CreateUserController)
-userRoutes.post('/:id/exercices', CreateExerciceController)
+userRoutes.get('/', GetAllUsersController)
+userRoutes.post('/:id/exercises', CreateExerciceController)
 
 export { userRoutes };

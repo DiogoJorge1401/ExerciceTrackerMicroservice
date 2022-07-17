@@ -17,6 +17,12 @@ export async function CreateUserController(req: Request, res: Response) {
 
 }
 
+export async function GetAllUsersController(req: Request, res: Response) {
+  const users = await UserModel.find()
+
+  return res.json(users)
+}
+
 export async function CreateExerciceController(req: Request, res: Response) {
   const userId = req.params.id
 
@@ -30,7 +36,7 @@ export async function CreateExerciceController(req: Request, res: Response) {
 
   date = new Date(date || new Date())
 
-  const {_id} = await ExerciceModel.create({
+  const { _id } = await ExerciceModel.create({
     date,
     description,
     duration,

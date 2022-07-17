@@ -1,2 +1,2 @@
-# URLShortenerMicroservice
-## Check here: https://sueurlshortenermicroservice.herokuapp.com/
+# ExerciceTrackerMicroservice
+## Check here: https://sueexercicetracker.herokuapp.com/
