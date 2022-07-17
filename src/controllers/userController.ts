@@ -97,9 +97,9 @@ export async function GetExerciceLog(req: Request, res: Response) {
       }))
 
     return res.json({
-      _id: userId,
       username: userExists.username,
       count: formattedExercices.length,
+      _id: userId,
       log: formattedExercices
     })
 
