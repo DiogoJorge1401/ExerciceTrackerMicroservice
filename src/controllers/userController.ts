@@ -38,7 +38,7 @@ export async function CreateExerciceController(req: Request, res: Response) {
 
     date = new Date(getDefaultDate(date))
 
-    const { _id } = await ExerciceModel.create({
+    await ExerciceModel.create({
       date,
       description,
       duration,
@@ -50,7 +50,7 @@ export async function CreateExerciceController(req: Request, res: Response) {
       description,
       duration: +duration,
       date: date.toDateString(),
-      _id
+      _id: userId
     })
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" })
