@@ -60,7 +60,11 @@ export async function CreateExerciceController(req: Request, res: Response) {
 
 export async function GetExerciceLog(req: Request, res: Response) {
   const userId = req.params.id
-  const { from, to, limit = 100 } = req.query
+  let { from = '1970', to, limit } = req.query as {
+    from?: string, to?: string, limit?: number
+  }
+  const fromDate = new Date(from).getTime()
+  let toDate: number
 
   try {
 
@@ -68,25 +72,35 @@ export async function GetExerciceLog(req: Request, res: Response) {
 
     if (!userExists) return res.json({ message: "user doesn't exist!" })
 
-    let exercices = await ExerciceModel.find({
-      user: userId,
-      date: {
-        $gte: new Date(getDefaultDate(from)),
-        $lte: new Date(getDefaultDate(to))
-      }
-    }).limit(limit) as any
+    const exercices = await ExerciceModel.find({
+      user: userId
+    })
 
-    exercices = exercices.map(({ description, duration, date }) => ({
-      description,
-      duration,
-      date: new Date(date).toDateString()
-    }))
+    limit ??= exercices.length
+
+    const formattedExercices = exercices
+      .filter((exe) => {
+        const date = new Date(exe.date).getTime()
+
+        if (to) {
+          toDate = new Date(to).getTime()
+          return (date >= fromDate && date <= toDate)
+        }
+        
+        return (date >= fromDate)
+      })
+      .slice(0, limit)
+      .map(({ description, duration, date }) => ({
+        description,
+        duration,
+        date: new Date(date).toDateString()
+      }))
 
     return res.json({
       _id: userId,
       username: userExists.username,
-      count: exercices.length,
-      log: exercices
+      count: formattedExercices.length,
+      log: formattedExercices
     })
 
   } catch (error) {
